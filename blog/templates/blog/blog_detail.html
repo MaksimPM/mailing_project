@@ -1,0 +1,19 @@
+{% extends 'mailings/base.html' %}
+{% block content %}
+
+<h1 class="display text-center mt-4">{{ object.title }}</h1>
+
+
+
+<div class="container">
+    <div class="card mb-4 box-shadow">
+        <div class="card-body">
+            <p>{{ object.content }}</p>
+            <ul class="list-unstyled mt-3 mb-2 text-start m-2">
+                <li>- Создан {{ object.created_at }}</li>
+                <li>- Количество просмотров: {{ object.views_count }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

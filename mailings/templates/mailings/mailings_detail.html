@@ -1,0 +1,56 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row ">
+            <div class="col-2">
+                <a href="{% url 'mailings:mailings_list' %}" class="btn btn-primary mb-3">Вернуться к списку
+                    рассылок</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header text-center">Рассылка №{{ object.pk }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Название: {{ object.mailing_name }}</h5>
+                        <hr>
+                        <p class="card-text">Дата выполнения рассылки: {{ object.start_date }}</p>
+                        <p class="card-text">Время выполнения рассылки: {{ object.time }}</p>
+                        <p class="card-text">Периодичность: {{ object.get_frequency_display }}</p>
+                        <p class="card-text">Статус рассылки: {{ object.get_status_display }}</p>
+                        <hr>
+                        <p class="card-text">Клиенты: </p>
+                        <ul class="list-inline">
+                            {% for client in object.clients.all %}
+                                <li>{{ client.fullname }} - {{ client.email }}</li>
+                            {% endfor %}
+                        </ul>
+                        <hr>
+                        <p>
+                            <a href="{% url 'mailings:message_detail' object.message_id %}">Сообщение
+                                {{ object.message.subject }}</a>
+                        </p>
+                        <hr>
+                        {% if request.user.is_staff %}
+                            <p class="text-muted">Создал: {{ object.user }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-center">
+                        {% if perms.mailings.change_mailing %}
+                            <a class="card-link mx-4"
+                               href="{% url 'mailings:mailings_update' object.pk %}">Изменить</a>
+                        {% endif %}
+                        {% if perms.mailings.delete_mailing %}
+                            <a class="btn btn-danger m"
+                               href="{% url 'mailings:mailings_delete' object.pk %}">Удалить</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            {% if perms.mailings.add_mailings %}
+                <div class="col-3">
+                    <a href="{% url 'mailings:mailings_create' %}" class="btn btn-primary">Создать рассылку</a>
+                </div>
+            {% endif %}
+            <div class="col-3">
+                <a href="{% url 'mailings:logs' %}" class="btn btn-primary">Отчет</a>
+            </div>
+        </div>
+
+        <div class="row my-5">
+            {% for object in object_list %}
+                <div class="card mb-4 mx-2" style="width: 20rem;">
+                    <div class="card-header">Рассылка №{{ object.pk }}</div>
+                    <div class="card-body">
+                        <h5 class="card-title">Название: {{ object.name }}</h5>
+                        <p class="card-text">Дата: {{ object.start_date }}</p>
+                        <p class="card-text">Время: {{ object.time }}</p>
+                        <p class="card-text">Статус: {{ object.get_status_display }}</p>
+                        {% if request.user.is_staff %}
+                            <span class="text-muted">Создал: {{ object.user }}</span>
+                        {% endif %}
+                    </div>
+                    {% if perms.mailings.view_mailings %}
+                        <div class="card-footer">
+                            <a class="btn btn-primary" href="{% url 'mailings:mailings_detail' object.pk %}">Выбрать</a>
+                            {% if perms.mailings.change_activity %}
+                                {% if object.is_active %}
+                                    <a class="btn btn-danger" href="{% url 'mailings:mailing_toggle_activity' object.pk %}">Отключить</a>
+                                {% else %}
+                                    <a class="btn btn-success" href="{% url 'mailings:mailing_toggle_activity' object.pk %}">Включить</a>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

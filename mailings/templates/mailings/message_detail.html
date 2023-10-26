@@ -1,0 +1,35 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row ">
+            <div class="col-2">
+                <a href="{% url 'mailings:message_list' %}" class="btn btn-primary mb-3">Вернуться к списку
+                    сообщений</a>
+            </div>
+        </div>
+        <div class="card w-75">
+            <div class="card-header text-center">Сообщение №{{ object.pk }}</div>
+            <div class="card-body">
+                <h5 class="card-title">Тема сообщения: <br>{{ object.subject }}</h5>
+                <hr>
+                <p class="card-text">Текст сообщения: <br> {{ object.body }}</p>
+                <hr>
+                {% if request.user.is_staff %}
+                    <p class="text-muted">Создал: {{ object.user }}</p>
+                {% endif %}
+            </div>
+            <div class="card-footer text-center">
+                {% if perms.mailings.change_message %}
+                    <a class="btn btn-primary" href="{% url 'mailings:message_update' object.pk %}">Изменить</a>
+                {% endif %}
+                {% if perms.mailing_service.delete_message %}
+                    <a class="btn btn-danger"
+                       href="{% url 'mailings:message_delete' object.pk %}">Удалить</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

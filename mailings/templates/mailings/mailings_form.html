@@ -1,0 +1,36 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+    <div class="col-12">
+        <form method="post" class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button class="btn btn-primary w-100 mt-4" type="submit">
+                            {% if object %}
+                                Сохранить
+                            {% else %}
+                                Создать
+                            {% endif %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container my-5">
+        <div class="row text-center">
+            <div class="col-12">
+                <a href="{% url 'mailings:client_create' %}" class="btn btn-primary">Добавить клиента</a>
+                <a href="{% url 'mailings:message_create' %}" class="btn btn-primary">Создать сообщение</a>
+                <a href="{% url 'mailings:message_list' %}" class="btn btn-outline-primary">Список сообщений</a>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+<main role="main">
+    <div class="col-12">
+        <div class="container">
+            <h2 class="display-4">Заполните поля формы</h2>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="card">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-primary w-100" type="submit">
+                        {% if object %}
+                            Сохранить
+                        {% else %}
+                            Создать
+                        {% endif %}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

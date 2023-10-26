@@ -1,0 +1,22 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+<main role="main">
+
+    <h1 class="display text-center mt-4">{{ object.title }}</h1>
+
+    <div class="col-12 d-flex justify-content-center align-items-center">
+        <div class="card d-flex justify-content-center">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Вы действительно хотите удалить "{{ object.title }}"?</p>
+                    <button class="btn btn-danger" type="submit">Подтвердить</button>
+                    <a href="{% url 'blog:list' %}" class="btn btn-warning">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

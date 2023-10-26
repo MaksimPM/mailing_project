@@ -1,0 +1,56 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row my-5">
+
+            <table class="table table-striped table-bordered">
+                <caption style="caption-side: top">Список пользователей</caption>
+                <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Страна</th>
+                    <th scope="col">Дата рождения</th>
+                    <th scope="col">Активность</th>
+                    <th scope="col">Сменить статус</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                {% for object in object_list %}
+                    <tr>
+                        <th scope="row">
+                            <a href="{% url 'mailings:client_detail' object.pk %}">{{ object.pk }}</a>
+                        </th>
+                        <td>{{ object.email }}</td>
+                        <td>{{ object.first_name }}</td>
+                        <td>{{ object.last_name }}</td>
+                        <td>{{ object.country }}</td>
+                        <td>{{ object.birthday }}</td>
+                        <td>{% if object.is_active %}Активен{% else %}Не активен{% endif %}</td>
+                        <td>
+                            {% if perms.users.set_activity %}
+                                {% if not object.is_superuser %}
+                                    {% if object.is_active %}
+                                        <a href="{% url 'users:toggle_activity' object.pk %}"
+                                           class="btn btn-outline-danger">Заблокировать</a>
+                                    {% else %}
+                                        <a href="{% url 'users:toggle_activity' object.pk %}"
+                                           class="btn btn-outline-success">Разблокировать</a>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}

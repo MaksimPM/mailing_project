@@ -1,0 +1,22 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+
+    <br>
+    <div class="col-12 d-flex justify-content-center align-items-center">
+        <div class="card d-flex justify-content-center">
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <p>Хотите удалить сообщение №{{ object.pk }}<br>"{{ object.subject }}"?</p>
+                    <button class="btn btn-danger" type="submit">
+                        Подтвердить
+                    </button>
+                    <a href="{% url 'mailings:message_list' %}" class="btn btn-warning">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

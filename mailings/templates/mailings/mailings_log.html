@@ -1,0 +1,34 @@
+{% extends 'mailings/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-3">
+                <a href="{% url 'mailings:logs' %}" class="btn btn-primary">Назад</a>
+            </div>
+            <table class="table table-striped table-bordered">
+                <caption style="caption-side: top">Отчет по рассылке {{ mailings_name }}</caption>
+                <thead>
+                <tr>
+                    <th scope="col">№</th>
+                    <th scope="col">Название рассылки</th>
+                    <th scope="col">Дата и время последней попытки</th>
+                    <th scope="col">Статус попытки</th>
+                </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                {% for object in object_list %}
+                    <tr>
+                        <th scope="row">{{ object.pk }}</th>
+                        <td>{{ object.mailings.name }}</td>
+                        <td>{{ object.datetime }}</td>
+                        <td>{{ object.get_status_display }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}
