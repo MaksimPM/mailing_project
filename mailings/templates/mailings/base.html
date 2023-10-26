@@ -14,7 +14,10 @@
         <a class="p-2 btn btn-outline-primary" href="/">Главная</a>
         <a class="p-2 btn btn-outline-primary" href="/mailings/list/">Каталог Рассылок</a>
         <a class="p-2 btn btn-outline-primary" href="/blog/">Блог</a>
-        <a class="p-2 btn btn-outline-primary" href="/contacts/">Получить рассылку</a>
+        {% if user.is_authenticated %}
+            <a class="p-2 btn btn-outline-primary" href="{% url 'mailings:mailings_create' %}">Создать рассылку</a>
+        {% else %}
+        {% endif %}
         {% if request.user.is_staff %}
             <a class="p-2 btn btn-outline-primary {% if request.path == users_list_url %} active{% endif %}" href="{% url 'users:list' %}">Список пользователей</a>
         {% endif %}
