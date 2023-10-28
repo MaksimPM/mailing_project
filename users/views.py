@@ -15,6 +15,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 from users.forms import UserRegisterForm, UserProfileForm
 from users.models import User
+from django.contrib.auth.models import Group
 
 
 class RegisterView(SuccessMessageMixin, CreateView):
@@ -39,6 +40,8 @@ class RegisterView(SuccessMessageMixin, CreateView):
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[self.object.email]
             )
+        group = Group.objects.get(name='users')
+        group.user_set.add(self.object)
         return super().form_valid(form)
 
 

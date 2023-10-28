@@ -17,7 +17,7 @@
                             <div class="card w-auto">
                                 <div class="card-header">Создать Рассылку</div>
                                 <div class="card-body">
-                                    <p class="card-text">Вы можете создать новую рассылку или воспользоваться списком уже
+                                    <p class="card-text">Вы можете создать новую рассылку сообщений или воспользоваться списком уже
                                         существующих рассылок</p>
                                     <a href="{% url 'mailings:mailings_create' %}" class="btn btn-primary">Создать</a>
                                     {% if perms.mailings.view_mailings %}
@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         {% endif %}
-                        </div>
+                    </div>
                 </div>
             </div>
         {% endif %}

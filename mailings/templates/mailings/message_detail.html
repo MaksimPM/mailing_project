@@ -23,10 +23,11 @@
             <div class="card-footer text-center">
                 {% if perms.mailings.change_message %}
                     <a class="btn btn-primary" href="{% url 'mailings:message_update' object.pk %}">Изменить</a>
+                {% else %}
                 {% endif %}
-                {% if perms.mailing_service.delete_message %}
-                    <a class="btn btn-danger"
-                       href="{% url 'mailings:message_delete' object.pk %}">Удалить</a>
+                {% if perms.mailings.delete_message %}
+                    <a class="btn btn-danger" href="{% url 'mailings:message_delete' object.pk %}">Удалить</a>
+                {% else %}
                 {% endif %}
             </div>
         </div>

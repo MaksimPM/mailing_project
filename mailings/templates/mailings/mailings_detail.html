@@ -39,11 +39,11 @@
                         {% endif %}
                     </div>
                     <div class="card-footer text-center">
-                        {% if perms.mailings.change_mailing %}
+                        {% if perms.mailings.change_mailings %}
                             <a class="card-link mx-4"
                                href="{% url 'mailings:mailings_update' object.pk %}">Изменить</a>
                         {% endif %}
-                        {% if perms.mailings.delete_mailing %}
+                        {% if perms.mailings.delete_mailings %}
                             <a class="btn btn-danger m"
                                href="{% url 'mailings:mailings_delete' object.pk %}">Удалить</a>
                         {% endif %}
