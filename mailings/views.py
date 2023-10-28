@@ -226,7 +226,7 @@ class LogListView(LoginRequiredMessageMixin, ListView):
 @login_required
 def get_mailing_logs(request, pk):
     """Получение логов принадлежащих конкретной рассылке"""
-    mailings_logs = Log.objects.filter(newsletter_id=pk)
+    mailings_logs = Log.objects.filter(mailing_id=pk)
     mailings = mailings_logs.first().mailings
     context = {
         'object_list': mailings_logs,
