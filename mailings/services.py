@@ -114,4 +114,3 @@ def my_job():
 
             mailing.status = mailing.Status.CREATED
             mailing.save()
-
