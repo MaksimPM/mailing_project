@@ -94,7 +94,6 @@ def my_job():
             try:
                 response = send_mail(mailing.message.subject, mailing.message.content, settings.EMAIL_HOST_USER,
                                      recipient_list)
-                print(response)
                 if response:
                     log = Log(mailing=mailing, status=Log.Status.SUCCESS, server_response=response)
                 else:

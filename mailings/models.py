@@ -86,3 +86,4 @@ class Log(models.Model):
     class Meta:
         verbose_name = 'Лог'
         verbose_name_plural = 'Логи'
+        ordering = ('-id',)
