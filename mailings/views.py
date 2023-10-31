@@ -64,8 +64,8 @@ class LoginRequiredMessageMixin(LoginRequiredMixin):
 def index(request):
     all_mailings = Mailings.objects.count()
     active_mailings = Mailings.objects.filter(is_active=True,
-                                                status__in=[Mailings.STATUS_CHOICES[0],
-                                                            Mailings.STATUS_CHOICES[1]]).count()
+                                              status__in=[Mailings.Status.CREATED,
+                                                          Mailings.Status.RUNNING]).count()
     clients = Client.objects.all().values('email').distinct().count()
     random_blog_article = get_random_blog_article()
     context = {
@@ -203,11 +203,11 @@ def toggle_activity(request, pk):
     if request.user.is_staff:
         if mailings.is_active:
             mailings.is_active = False
-            mailings.status = mailings.STATUS_CHOICES[2]
+            mailings.status = mailings.Status.COMPLETED
             mailings.save()
         else:
             mailings.is_active = True
-            mailings.status = mailings.STATUS_CHOICES[1]
+            mailings.status = mailings.Status.RUNNING
             mailings.save()
         return redirect('mailings:mailings_list')
 
